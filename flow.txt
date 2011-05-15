@@ -1,0 +1,23 @@
+folder 601
+files  604
+
+Go to our web page home
+  Search for a particular paper - text search - search by tag, search by paper title
+
+  Format the results of the text based search so that you can click on the correct article and it takes you to our dashboard
+
+  Our Dashboard Displays the following:
+	Paper
+	Value (Unique ID?)
+	Title - Plain Text	
+	Link - Plain Link
+	Abstract - Plain Text
+	Publications - Plain Text
+	Authors - Plain Text/Link
+	  Discipline - Text
+	  Upandcoming - Research what this is and if relevant determine visualization for it
+	Readership - Heat/Cluster Map/Geographic
+	  Discipline
+	  Country 
+	  Academic Status
+	Tags - links to a basic search on that tag
