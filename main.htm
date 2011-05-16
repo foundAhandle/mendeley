@@ -3,64 +3,27 @@
   <head>
 	<title>Mendely App</title>
 	<link	type="text/css" href="css/style.css" rel="stylesheet">
-	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript" src="js/jQ.js"></script>
 	<script type="text/javascript" src="js/jquery.corners.min.js"></script>
 	<script type="text/javascript" src="js/vars.js"></script>
+	<script type="text/javascript" src="js/css.js"></script>
+	<script type="text/javascript" src="js/handlers.js"></script>
+	<script type="text/javascript" src="js/events.js"></script>
 	<script type="text/javascript" src="js/ready.js"></script>
   </head>
   <body>
-	<div id="container">
-	<form>
-	  <fieldset>
-		<legend>search by tag, search by paper title</legend>
-<!--
-		  <div style="float: right;">
-			<label for="comment">Comment:</label>
-			<br />
-			<textarea name="comment" id="comment"></textarea>
-			<br />
-		  </div>                    
--->
-		  <label for="name">Name:</label>
-		  <br />
-		  <input type="text" name="name" id="name" />
-		  <br />
-		  <br />
-		  <label for="email">Email Address:</label>
-		  <br />
-		  <input type="text" name="email" id="name" />
-		  <br />
-		  <br />
-		  <button id="submit" type="button">Submit</button>&nbsp;&nbsp;<a id="clear" href="#">clear</a>
-		</fieldset>
-	  </form>
-<!--
-	<!DOCTYPE html>
-<html>
-<head>
-  <style>
-div { width: 60px; height: 60px; float: left; }
-.first { background-color: #3f3; }
-.second { background-color: #33f;}
-</style>
-  <script src="http://code.jquery.com/jquery-latest.js"></script>
-</head>
-<body>
-  
-<p><button>Run</button></p>
-<div class="first"></div>
-<div class="second"></div>
-        
-<script>
-    $("button").click(function() {
-      $("div.first").slideUp(300).delay(800).fadeIn(400);
-      $("div.second").slideUp(300).fadeIn(400);
-    });
-</script>
-
-</body>
-</html>
--->
+	<div id="outer">
+	  <div id="container">
+		<form>
+		  <fieldset>
+			<legend>Search by Tag or by Paper Title&nbsp;&nbsp;&nbsp;<font>separate terms with a semi-colon</font></legend>
+			  <input id="search" type="text"/>
+			  <div id="message"></div>
+			  <a id="submit" href="javascript:">Submit</a>&nbsp;&nbsp;<img id="spinner" src="http://i.imgur.com/m24rs.gif" alt="loading..."/>
+			</fieldset>
+		  </form>
+	  </div>
+<div id="results"></div>
 	</div>
   </body>
 </html>

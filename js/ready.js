@@ -1,16 +1,10 @@
 $(function(){
-  //round corners
-  $('#container').corners('15px');
+  //hide spinner gif
+  $('#spinner').hide();
 
-//$('p').text('The DOM is now loaded and can be manipulated.');
-/*
-$('#container').fadeIn(1000);,
-  function(){
-	$('span').text('TEST');
-	$('span').slideDown(3000);
-  });
-*/
+  //update css
+  updateCss();
+
+  //add bindings
+  bindings();
 });
-
-//anchor link Hover States
-//$('a#myButton').hover(buttonRollOver, buttonRollOut);

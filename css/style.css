@@ -4,21 +4,44 @@ body {
 /*text-align:		center;*/
 }
 
-#container {
-  width:			700px;
-/*  height:			500px;*/
+#outer {
+  width:			600px;
+/*  height:			400px;*/
   margin:			100px/*auto*/;
   text-align:		left;
-  padding:			20px 50px;
+  padding:			20px 50px 15px 50px;
   background-color:	#EEE;
 /*display:			none;*/
 }
-/*
-span{
-  width:			100px;
-  height:			100px;
-  color:			#603F3F;
-display:			none;
-opacity:0;
+
+fieldset {
+  border-style:		none;
 }
-*/
+
+font {
+  font-size:		14px;
+}
+
+#search {
+  width:			200px;
+}
+
+#message {
+  height:			25px;
+  padding:			5px;
+  color:			#F00;
+  font-style:		italic;
+}
+
+#submit {
+  display:			none;
+  color:			#000;
+  text-decoration:	none;
+  border:			none;
+  border-bottom:	2px solid #999;
+}
+
+#submit:hover {
+  color:			#999;
+  border-bottom:	2px solid #000;
+}
