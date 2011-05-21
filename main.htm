@@ -9,21 +9,31 @@
 	<script type="text/javascript" src="js/css.js"></script>
 	<script type="text/javascript" src="js/handlers.js"></script>
 	<script type="text/javascript" src="js/events.js"></script>
+	<script type="text/javascript" src="js/util.js"></script>
 	<script type="text/javascript" src="js/ready.js"></script>
   </head>
   <body>
-	<div id="outer">
+	<div>
 	  <div id="container">
-		<form>
-		  <fieldset>
-			<legend>Search by Tag or by Paper Title&nbsp;&nbsp;&nbsp;<font>separate terms with a semi-colon</font></legend>
-			  <input id="search" type="text"/>
-			  <div id="message"></div>
-			  <a id="submit" href="javascript:">Submit</a>&nbsp;&nbsp;<img id="spinner" src="http://i.imgur.com/m24rs.gif" alt="loading..."/>
-			</fieldset>
-		  </form>
+		<table>
+		  <tr>
+			<td colspan="2">Search by Tag or by Paper Title&nbsp;&nbsp;&nbsp;<font>separate terms with a semi-colon</font></td>
+		  </tr>
+		  <tr>
+			<td colspan="2"><input id="search" type="text"/></td>
+		  </tr>
+		  <tr>
+			<td colspan="2"><div id="message"></div></td>
+		  </tr>
+		  <tr>
+			<td width="25%"><a id="submit" href="javascript:">Submit</a>
+							<img id="spinner1" src="http://i.imgur.com/m24rs.gif" alt="loading..."/></td>
+			<td><a id="score" href="javascript:">Rank by Score</a>
+				<img id="spinner2" src="http://i.imgur.com/m24rs.gif" alt="loading..."/></td>
+		  </tr>
+		</table>
 	  </div>
-<div id="results"></div>
+	  <div id="results"/>
 	</div>
   </body>
 </html>

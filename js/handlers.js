@@ -1,16 +1,40 @@
 //check input
 function checkInput(){
-  //toggle message
-  toggleMessage($('#search').val()!='');
+  //if the search input is blank
+  if($('#search').val()==''){
+	//message is blank
+	toggleMessage(true);
 
-  //toggle submit button
-  toggleSubmit($('#search').val()!='');
+	//submit button is hidden
+	toggleSubmit(false);
+
+	//score button is hidden
+	toggleScore(false);
+  }
+  //else (if the search input is not blank)
+  else
+  {
+	//make a new regex object
+	var rE = new RegExp(SEARCH_REGEX);
+
+	//valid or not flag
+	var validOrNot = rE.test($('#search').val());
+
+	//set message
+	toggleMessage(validOrNot);
+
+	//set submit button visibility
+	toggleSubmit(validOrNot);
+
+	//score button is hidden
+	toggleScore(validOrNot);
+  }
 }
 
 //toggle message
 function toggleMessage(clearOrMessage){
   //show or clear a message
-  $('#message').text(clearOrMessage?'':'enter a search term');
+  $('#message').text(clearOrMessage?'':'invalid search term');
 }
 
 //toggle submit button
@@ -25,46 +49,70 @@ function toggleSubmit(showOrHide){
 	$('#submit').show(300);
 }
 
+//toggle score button
+function toggleScore(showOrHide){
+  //if hiding the button AND the button is currently visible
+  if(!showOrHide && $('#score').is(':visible'))
+	//hide the submit button
+	$('#score').hide(300);
+  //else if showing the button AND the button is currently hidden AND there is at least one 'paper' div
+  else if(showOrHide && !$('#score').is(':visible') && $('#results').children().length>0)
+	//show the submit button
+	$('#score').show(300);
+}
+
 //send
 function send(){
-  //fade in loading indicator
-  $('#spinner').fadeIn(200,function(){
-	//get json object
-//$('#results').load('http://api.mendeley.com/oapi/documents/search/test;weather/',
-//'consumer_key=973a9d58c1f8ffe7155e5d5136183ff304dcb3fb6',function(response,status,xhr){
-//TESTING
-$('#results').load('json.txt',function(response,status,xhr){
-//$('#results').load('http://10.natalilabsproject.appspot.com/currentdate/',function(response,status,xhr){
-//TESTING
-	  //fade out the indicator
-	  $('#spinner').fadeOut(200);
+  //clear previous results
+  clear(false);
 
+  //fade in loading indicator
+  $('#spinner1').fadeIn(200,function(){
+	//load json via api
+	$.getJSON(PROXY_URL+SEARCH_PATH+$('#search').val()+'/',CONSUMER_KEY,function(response,status,xhr){
 	  //if error
 	  if(status=='error')
 		//show the error
 		$('#message').text('Sorry but there was an error: '+xhr.status+' '+xhr.statusText);
 	  //else (if no error)
-//	  else
-		//fade in the results
+	  else
+	  {
+		//for each json entry
+		$.each(response.documents,function(key,val){
+		  //results->div
+		  $('<div>',{'id':val.uuid,'class':'paper'}).appendTo('#results');
 
-	});
-  });
+		  //get the title
+		  title = (val.title.length>70)?(val.title.substr(0,70)+'...'):val.title;
 
-/*
-$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
-  {
-    tags: "cat",
-    tagmode: "any",
-    format: "json"
-  },
-  function(data) {
-*/
-//console.log('success');
-/*
-    $.each(data.items, function(i,item){
-      $("<img/>").attr("src", item.media.m).appendTo("#images");
-      if ( i == 3 ) return false;
-    });
-*/
-//  });
+		  //div->anchor
+		  $('<a>',{'href':val.mendeley_url,'target':'_blank','html':title}).appendTo('#'+val.uuid);
+
+		  //div->break
+		  $('<br>').appendTo('#'+val.uuid);
+
+		  //div->authors
+		  $('<span>',{'html':val.authors}).appendTo('#'+val.uuid);
+
+		  //div->break
+		  $('<br>').appendTo('#'+val.uuid);
+
+		  //div->year
+		  $('<span>',{'html':val.year}).appendTo('#'+val.uuid);
+
+		  //corners not working properly if height is set via css
+		  $('#'+val.uuid).css({'height':60});
+
+		  //round corners
+		  $('#'+val.uuid).corners('5px');
+		});
+
+		//fade out the indicator
+		$('#spinner1').fadeOut(200);
+	  }
+
+	  //toggle score button
+	  toggleScore(status!='error');
+	});//end load json via api
+  });//end fade in loading indicator
 }

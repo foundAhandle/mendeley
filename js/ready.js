@@ -1,6 +1,6 @@
 $(function(){
-  //hide spinner gif
-  $('#spinner').hide();
+  //clear screen
+  clear(true);
 
   //update css
   updateCss();

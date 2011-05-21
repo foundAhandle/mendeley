@@ -1,17 +1,10 @@
-body {
-  margin:			50px 0px;
-  padding:			0px;
-/*text-align:		center;*/
-}
-
-#outer {
+#container {
   width:			600px;
-/*  height:			400px;*/
-  margin:			100px/*auto*/;
+/*height:			400px;*/
+  margin-left:		100px;
   text-align:		left;
   padding:			20px 50px 15px 50px;
-  background-color:	#EEE;
-/*display:			none;*/
+  background-color:	#BBB;
 }
 
 fieldset {
@@ -44,4 +37,42 @@ font {
 #submit:hover {
   color:			#999;
   border-bottom:	2px solid #000;
+}
+
+#score {
+  display:			none;
+  color:			#000;
+  text-decoration:	none;
+  border:			none;
+  border-bottom:	2px solid #999;
+}
+
+#score:hover {
+  color:			#F00;
+  border-bottom:	2px solid #000;
+}
+
+a {
+  color:			#000;
+  text-decoration:	none;
+  border:			none;
+  border-bottom:	2px solid #999;
+}
+
+a:hover {
+  color:			#999;
+  border-bottom:	2px solid #000;
+}
+
+#results {
+  width:			550px;
+  margin:			0px 0px 0px 150px;
+  text-align:		left;
+}
+
+.paper {
+  margin-top:		15px;
+  text-align:		left;
+  padding:			5px 0px 5px 10px;
+  background-color:	#CCC;
 }
