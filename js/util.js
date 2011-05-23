@@ -15,6 +15,9 @@ function clear(clearAll){
 	$('#spinner2').hide();
   }
 
+//CLEAR MAP
+
+
   //hide score button
   toggleScore(false);
 

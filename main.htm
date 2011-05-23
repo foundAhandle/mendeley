@@ -5,6 +5,8 @@
 	<link	type="text/css" href="css/style.css" rel="stylesheet">
 	<script type="text/javascript" src="js/jQ.js"></script>
 	<script type="text/javascript" src="js/jquery.corners.min.js"></script>
+	<script type='text/javascript' src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="js/map.js"></script>
 	<script type="text/javascript" src="js/vars.js"></script>
 	<script type="text/javascript" src="js/css.js"></script>
 	<script type="text/javascript" src="js/handlers.js"></script>
@@ -14,26 +16,34 @@
   </head>
   <body>
 	<div>
-	  <div id="container">
-		<table>
+	  <div id="top">
+		<table summary="">
 		  <tr>
-			<td colspan="2">Search by Tag or by Paper Title&nbsp;&nbsp;&nbsp;<font>separate terms with a semi-colon</font></td>
+			<td colspan="3">Search by Tag or by Paper Title&nbsp;&nbsp;&nbsp;<font>separate terms with a semi-colon</font></td>
 		  </tr>
 		  <tr>
-			<td colspan="2"><input id="search" type="text"/></td>
+			<td colspan="3"><input id="search" type="text"/></td>
 		  </tr>
 		  <tr>
-			<td colspan="2"><div id="message"></div></td>
+			<td colspan="3"><div id="message"></div></td>
 		  </tr>
 		  <tr>
 			<td width="25%"><a id="submit" href="javascript:">Submit</a>
 							<img id="spinner1" src="http://i.imgur.com/m24rs.gif" alt="loading..."/></td>
-			<td><a id="score" href="javascript:">Rank by Score</a>
+			<td width="40%"><a id="score" href="javascript:">Rank by Score</a>
 				<img id="spinner2" src="http://i.imgur.com/m24rs.gif" alt="loading..."/></td>
+			<td><a id="clear" href="javascript:">Clear</a></td>
 		  </tr>
 		</table>
 	  </div>
-	  <div id="results"/>
+	  <div>
+		<table summary="">
+		  <tr>
+			<td><div id="results"/></td>
+			<td><div id="map"/></td>
+		  </tr>
+		</table>
+	  </div>
 	</div>
   </body>
 </html>

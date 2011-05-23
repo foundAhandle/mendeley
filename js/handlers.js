@@ -61,6 +61,12 @@ function toggleScore(showOrHide){
 	$('#score').show(300);
 }
 
+//clear click
+function clearClick(){
+  //clear previous results
+  clear(true);
+}
+
 //send
 function send(){
   //clear previous results
@@ -86,7 +92,8 @@ function send(){
 		  title = (val.title.length>70)?(val.title.substr(0,70)+'...'):val.title;
 
 		  //div->anchor
-		  $('<a>',{'href':val.mendeley_url,'target':'_blank','html':title}).appendTo('#'+val.uuid);
+		  $('<a>',{'href':val.mendeley_url,'target':'_blank','html':title,'mouseover':over,'mouseout':out}).
+			appendTo('#'+val.uuid);
 
 		  //div->break
 		  $('<br>').appendTo('#'+val.uuid);
@@ -105,14 +112,29 @@ function send(){
 
 		  //round corners
 		  $('#'+val.uuid).corners('5px');
-		});
+		});//end for each json entry
 
 		//fade out the indicator
 		$('#spinner1').fadeOut(200);
-	  }
+
+		//draw map
+		drawMap();
+	  }//end else (if no error)
 
 	  //toggle score button
 	  toggleScore(status!='error');
 	});//end load json via api
   });//end fade in loading indicator
+}
+
+//mouse over handler
+function over(){
+  //
+console.log('over');
+}
+
+//mouse out handler
+function out(){
+  //
+console.log('out');
 }

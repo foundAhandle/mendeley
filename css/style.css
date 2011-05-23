@@ -1,4 +1,4 @@
-#container {
+#top {
   width:			600px;
 /*height:			400px;*/
   margin-left:		100px;
@@ -49,6 +49,18 @@ font {
 
 #score:hover {
   color:			#F00;
+  border-bottom:	2px solid #000;
+}
+
+#clear {
+  color:			#000;
+  text-decoration:	none;
+  border:			none;
+  border-bottom:	2px solid #999;
+}
+
+#clear:hover {
+  color:			#999;
   border-bottom:	2px solid #000;
 }
 
