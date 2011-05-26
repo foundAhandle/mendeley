@@ -31,34 +31,13 @@ function checkInput(){
   }
 }
 
-//toggle message
-function toggleMessage(clearOrMessage){
-  //show or clear a message
-  $('#message').text(clearOrMessage?'':'invalid search term');
-}
+//send click
+function sendClick(){
+  //clear previous results
+  clear(false);
 
-//toggle submit button
-function toggleSubmit(showOrHide){
-  //if hiding the button AND the button is currently visible
-  if(!showOrHide && $('#submit').is(':visible'))
-	//hide the submit button
-	$('#submit').hide(300);
-  //else if showing the button AND the button is currently hidden
-  else if(showOrHide && !$('#submit').is(':visible'))
-	//show the submit button
-	$('#submit').show(300);
-}
-
-//toggle score button
-function toggleScore(showOrHide){
-  //if hiding the button AND the button is currently visible
-  if(!showOrHide && $('#score').is(':visible'))
-	//hide the submit button
-	$('#score').hide(300);
-  //else if showing the button AND the button is currently hidden AND there is at least one 'paper' div
-  else if(showOrHide && !$('#score').is(':visible') && $('#results').children().length>0)
-	//show the submit button
-	$('#score').show(300);
+  //call send with proper url and utility function
+  send(PROXY_URL+SEARCH_PATH+$('#search').val()+'/',CONSUMER_KEY,populate);
 }
 
 //clear click
@@ -67,70 +46,23 @@ function clearClick(){
   clear(true);
 }
 
-//send
-function send(){
-  //clear previous results
-  clear(false);
-
-  //fade in loading indicator
-  $('#spinner1').fadeIn(200,function(){
-	//load json via api
-	$.getJSON(PROXY_URL+SEARCH_PATH+$('#search').val()+'/',CONSUMER_KEY,function(response,status,xhr){
-	  //if error
-	  if(status=='error')
-		//show the error
-		$('#message').text('Sorry but there was an error: '+xhr.status+' '+xhr.statusText);
-	  //else (if no error)
-	  else
-	  {
-		//for each json entry
-		$.each(response.documents,function(key,val){
-		  //results->div
-		  $('<div>',{'id':val.uuid,'class':'paper'}).appendTo('#results');
-
-		  //get the title
-		  title = (val.title.length>70)?(val.title.substr(0,70)+'...'):val.title;
-
-		  //div->anchor
-		  $('<a>',{'href':val.mendeley_url,'target':'_blank','html':title,'mouseover':over,'mouseout':out}).
-			appendTo('#'+val.uuid);
-
-		  //div->break
-		  $('<br>').appendTo('#'+val.uuid);
-
-		  //div->authors
-		  $('<span>',{'html':val.authors}).appendTo('#'+val.uuid);
-
-		  //div->break
-		  $('<br>').appendTo('#'+val.uuid);
-
-		  //div->year
-		  $('<span>',{'html':val.year}).appendTo('#'+val.uuid);
-
-		  //corners not working properly if height is set via css
-		  $('#'+val.uuid).css({'height':60});
-
-		  //round corners
-		  $('#'+val.uuid).corners('5px');
-		});//end for each json entry
-
-		//fade out the indicator
-		$('#spinner1').fadeOut(200);
-
-		//draw map
-		drawMap();
-	  }//end else (if no error)
-
-	  //toggle score button
-	  toggleScore(status!='error');
-	});//end load json via api
-  });//end fade in loading indicator
-}
-
 //mouse over handler
 function over(){
-  //
-console.log('over');
+  //set the country
+//console.log(tableData);
+//      tableData.setValue(0, 0, 'United States');
+//      tableData.setValue(0, 1, 300);
+//
+//geomap.setSelection([{row:1,column:null}]);
+//console.log(geomap.getSelection());
+/*
+var view = new google.visualization.DataView(tableData);
+view.setRows(view.getFilteredRows([{column: 1, minValue: 700}]));
+geomap.draw(view,{sortColumn:1});
+//geomap.setSelection(view);
+*/
+//geomap.draw(tableData,tableConfigOpts);
+drawMap(false);
 }
 
 //mouse out handler

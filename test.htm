@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<script type='text/javascript' src="https://www.google.com/jsapi"></script>
+  </head>
+  <body>
+<table style="border:0; width: 50%">
+  <tr valign="top">
+    <td style="border:0"><div id="table_div"></div></td>
+    <td style="border:0" width="20"></td>
+    <td style="border:0"><div id="org_div"></div></td>
+
+  </tr>  
+</table>
+<script type="text/javascript">
+
+google.load("visualization", "1", {packages: ["table"/*, "orgchart"*/,'geomap']});
+google.setOnLoadCallback(initialize);
+
+//init
+function initialize() {
+  var tableData = new google.visualization.DataTable();
+
+  tableData.addColumn('string','Country');
+//  tableData.addColumn('number','Popularity');
+
+tableData.addRows(7);
+
+      tableData.setValue(0, 0, 'Germany');
+      tableData.setValue(1, 0, 'United States');
+      tableData.setValue(2, 0, 'Brazil');
+      tableData.setValue(3, 0, 'Canada');
+      tableData.setValue(4, 0, 'France');
+      tableData.setValue(5, 0, 'RU');
+      tableData.setValue(6, 0, 'Chile');
+
+  var table = new google.visualization.Table(document.getElementById('table_div'));
+  table.draw(tableData, {showRowNumber: true});
+
+//var org = new google.visualization.OrgChart(document.getElementById('org_div'));
+  var org = new google.visualization.GeoMap(document.getElementById('org_div'));
+  org.draw(tableData, {'showLegend':false});
+
+  //handler
+  google.visualization.events.addListener(table, 'select', function() {
+    org.setSelection(table.getSelection());
+  });
+
+  //handler
+  google.visualization.events.addListener(org, 'select', function() {
+//tableData.addRow(['Egypt',900]);
+      tableData.setValue(3, 0, 'Egypt');
+//var view = new google.visualization.DataView(tableData);
+//view.setRows(view.getFilteredRows([{column: 1, minValue: 400}]));
+//console.log(tableData.getRowProperties(7));
+//table.setSelection(view);
+    table.setSelection(org.getSelection());
+  });
+}
+</script>
+  </body>
+</html>

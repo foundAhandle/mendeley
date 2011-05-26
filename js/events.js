@@ -3,7 +3,7 @@ function bindings(){
   $('#search').keyup(checkInput);
 
   //bind 'click' -> submit button
-  $('#submit').click(send);
+  $('#submit').click(sendClick);
 
   //bind 'click' -> clear button
   $('#clear').click(clearClick);
