@@ -62,7 +62,7 @@ geomap.draw(view,{sortColumn:1});
 //geomap.setSelection(view);
 */
 //geomap.draw(tableData,tableConfigOpts);
-drawMap(false);
+//drawMap(false);
 }
 
 //mouse out handler

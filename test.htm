@@ -1,62 +1,88 @@
-<!DOCTYPE html>
 <html lang="en">
   <head>
-	<script type='text/javascript' src="https://www.google.com/jsapi"></script>
+	<title>Mendely App</title>
+
+	<!-- css -->
+	<link type="text/css" href="css/style.css" rel="stylesheet">
+<!--    <link type="text/css" href="css/ex.css?3.2" rel="stylesheet"/>-->
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="js/jQ.js"></script>
+	<script type="text/javascript" src="js/jquery.corners.min.js"></script>
+
+	<!-- google -->
+<!--	<script type='text/javascript' src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="js/map.js"></script>-->
+
+	<!-- mine -->
+	<script type="text/javascript" src="js/vars.js"></script>
+	<script type="text/javascript" src="js/css.js"></script>
+	<script type="text/javascript" src="js/handlers.js"></script>
+	<script type="text/javascript" src="js/events.js"></script>
+	<script type="text/javascript" src="js/util.js"></script>
+
+	<!-- protovis -->
+    <script type="text/javascript" src="js/protovis-r3.2.js"></script>
+    <script type="text/javascript" src="js/countries.js"></script>
+
+	<!-- mine -->
+	<script type="text/javascript" src="js/ready.js"></script>
   </head>
   <body>
-<table style="border:0; width: 50%">
-  <tr valign="top">
-    <td style="border:0"><div id="table_div"></div></td>
-    <td style="border:0" width="20"></td>
-    <td style="border:0"><div id="org_div"></div></td>
+	<!-- container -->
+	<div id="container">
+	  <!-- top -->
+	  <div id="top">
+		<div class="topDivs">
+		  <font>Search by Tag or by Paper Title&nbsp;&nbsp;&nbsp;<font>separate terms with a semi-colon</font></font>
+		</div>
 
-  </tr>  
-</table>
-<script type="text/javascript">
+		<div class="topDivs">
+		  <input id="search" type="text"/>
+		</div>
 
-google.load("visualization", "1", {packages: ["table"/*, "orgchart"*/,'geomap']});
-google.setOnLoadCallback(initialize);
+		<div style="padding: 0px 0px 0px 25px;">
+		  <font id="message"></font>
+		</div>
 
-//init
-function initialize() {
-  var tableData = new google.visualization.DataTable();
+		<div class="topDivs">
+		  <!-- submit -->
+		  <span style="position:absolute;">
+			<a id="submit" href="javascript:">Submit</a>
+			<img id="spinner1" src="http://i.imgur.com/m24rs.gif" alt="loading..."/>
+		  </span>
 
-  tableData.addColumn('string','Country');
-//  tableData.addColumn('number','Popularity');
+		  <!-- score -->
+		  <span style="position:absolute; left:300px">
+			<a id="score" href="javascript:">Rank by Score</a>
+			<img id="spinner2" src="http://i.imgur.com/m24rs.gif" alt="loading..."/>
+		  </span>
 
-tableData.addRows(7);
+		  <!-- clear -->
+		  <span style="float:right">
+			<a id="clear" href="javascript:">Clear</a>
+		  </span>
+		</div>
+	  </div>
 
-      tableData.setValue(0, 0, 'Germany');
-      tableData.setValue(1, 0, 'United States');
-      tableData.setValue(2, 0, 'Brazil');
-      tableData.setValue(3, 0, 'Canada');
-      tableData.setValue(4, 0, 'France');
-      tableData.setValue(5, 0, 'RU');
-      tableData.setValue(6, 0, 'Chile');
+	  <!-- bottom -->
+	  <div id="bottom">
+		<!-- spacer -->
+		<div class="spacer"></div>
+		<!-- results and map -->
+		<div>
+		  <!-- results -->
+		  <ul id="results"></ul>
 
-  var table = new google.visualization.Table(document.getElementById('table_div'));
-  table.draw(tableData, {showRowNumber: true});
+		  <!-- map -->
+<div style="background-color:#4A5584;float:left;">
+TWO
+</div>
+		</div><!-- end results and map -->
+	  </div><!-- end bottom -->
+	</div>
 
-//var org = new google.visualization.OrgChart(document.getElementById('org_div'));
-  var org = new google.visualization.GeoMap(document.getElementById('org_div'));
-  org.draw(tableData, {'showLegend':false});
-
-  //handler
-  google.visualization.events.addListener(table, 'select', function() {
-    org.setSelection(table.getSelection());
-  });
-
-  //handler
-  google.visualization.events.addListener(org, 'select', function() {
-//tableData.addRow(['Egypt',900]);
-      tableData.setValue(3, 0, 'Egypt');
-//var view = new google.visualization.DataView(tableData);
-//view.setRows(view.getFilteredRows([{column: 1, minValue: 400}]));
-//console.log(tableData.getRowProperties(7));
-//table.setSelection(view);
-    table.setSelection(org.getSelection());
-  });
-}
-</script>
+	<!-- protovis -->
+    <script type="text/javascript" src="js/proto.js"></script>
   </body>
 </html>

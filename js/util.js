@@ -75,7 +75,7 @@ function send(url,get,utilFunc){
 		$('#spinner1').fadeOut(200);
 
 //draw map
-drawMap(true);
+//drawMap(true);
 	  }//end else (if no error)
 
 	  //toggle score button
