@@ -81,7 +81,8 @@ function customSort(response){
 		pTitle = false; 
 		pYear1 = $( "#slider-range" ).slider( "values", 0 );
 		pYear2 = $( "#slider-range" ).slider( "values", 1 );
-		pTwitter = false; 
+	
+		var sortedResponse = response;
 		
 		var SearchTerms = $('#search')[0].value;
 		SearchTerms = SearchTerms.split(';');
@@ -105,26 +106,26 @@ function customSort(response){
 		 }
 		 
 		//Filter Year
-		console.log(response.documents.length);
-	//	for (response.documents, function(key, val) {
-		console.log(response.documents.pop().title);
+		
+	//	for (sortedResponse.documents, function(key, val) {
+		console.log(sortedResponse.documents.pop().title);
 		if (pYear1 != ""){
-			for(var i=0, itemSize=response.documents.length; i<itemSize; i++) {
+			for(var i=0, itemSize=sortedResponse.documents.length; i<itemSize; i++) {
 				// console.log(pYear1);
 				// console.log("Year 2 = " + pYear2);
-				// console.log(response.documents[i].year);
-				if (pYear1 <= response.documents[i].year && pYear2 >= response.documents[i].year){
+				// console.log(sortedResponse.documents[i].year);
+				if (pYear1 <= sortedResponse.documents[i].year && pYear2 >= sortedResponse.documents[i].year){
 						// console.log("MATCH, i = " +i);
-						// console.log("Year Match, length = " + response.documents.length);
-						// console.log(response.documents[i].year);
-						// console.log(response.documents[i].title);
+						// console.log("Year Match, length = " + sortedResponse.documents.length);
+						// console.log(sortedResponse.documents[i].year);
+						// console.log(sortedResponse.documents[i].title);
 						// console.log("i = " + i);
 						// console.log("itemSize = " + i);
-						// console.log("length = " + response.documents.length); 
+						// console.log("length = " + sortedResponse.documents.length); 
 				}
-				else if (response.documents[i].year != undefined) {
-					console.log("NO MATCH " + response.documents[i].year);
-					response.documents.splice(i,1);
+				else if (sortedResponse.documents[i].year != undefined) {
+					console.log("NO MATCH " + sortedResponse.documents[i].year);
+					sortedResponse.documents.splice(i,1);
  					console.log("Deleting Item" + i); 
 					itemSize = itemSize-1;
 					i--;
@@ -134,7 +135,7 @@ function customSort(response){
 			console.log("Year isn't blank" + i);
 		};
 		 
-		$.each(response.documents, function(key, val) {
+		$.each(sortedResponse.documents, function(key, val) {
 			var i=key;
 			i=i+.1;
 			
@@ -179,9 +180,9 @@ function customSort(response){
 		function compareDocuments(a, b){
 		return a.sortOrder - b.sortOrder;
 		}
-		response.documents.sort(compareDocuments);
+		sortedResponse.documents.sort(compareDocuments);
 		
-		$.each(response.documents, function(key, val) {
+		$.each(sortedResponse.documents, function(key, val) {
 			
 			console.log(val.sortOrder);
 			console.log(val.year);
@@ -190,6 +191,7 @@ function customSort(response){
 }
 
 function reSort(){
+	storeResponse = jQuery.extend(true, {}, originalResponse);
 	customSort(storeResponse);
 	$('#results').children().remove();
 	populate(storeResponse);
@@ -197,7 +199,6 @@ function reSort(){
 
 function displayYearSlider(){
 	
-	//$('.yearSlider').append('<div id="slider-range">	</div>');	
 	$(function() {
 		$( "#slider-range" ).slider({
 			range: true,
@@ -208,10 +209,8 @@ function displayYearSlider(){
 				$( "#amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
 			}
 		});
+
 		$( "#amount" ).val($( "#slider-range" ).slider( "values", 0 ) +	" - " + $( "#slider-range" ).slider( "values", 1 ) );
-		// startYear = $( "#slider-range" ).slider( "values", 0 );
-		// endYear = $( "#slider-range" ).slider( "values", 1 );
-		//console.log("end year =" + endYear);
 	});
 				
 	

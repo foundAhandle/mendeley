@@ -68,11 +68,18 @@ function send(url,get,utilFunc){
 	  //else (if no error)
 	  else
 	  {
-		//utility function
-		console.log("end year =" + endYear);
-		customSort(response);
-		utilFunc(response);
+		
+		//store response
 		storeResponse = response;
+		originalResponse = jQuery.extend(true, {}, response);
+		
+		
+		//sort response
+		customSort(storeResponse);
+		
+		//utility function
+		utilFunc(response);
+
 		//fade out the indicator
 		$('#spinner1').fadeOut(200);
 

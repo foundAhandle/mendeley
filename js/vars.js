@@ -12,6 +12,7 @@ var SEARCH_REGEX = '^(\\w|;|-|\\$|\\(|\\))+$';
 
 //response data
 var storeResponse = []; 
+var originalResponse = []; 
 
 //start year
 var startYear = 0;
