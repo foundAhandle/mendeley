@@ -4,4 +4,6 @@ function bindings(){
 
   //bind 'click' -> submit button
   $('#submit').click(send)
+  
+  $('#score').click(customSort)
 }

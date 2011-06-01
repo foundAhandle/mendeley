@@ -2,9 +2,12 @@
 <html lang="en">
   <head>
 	<title>Mendely App</title>
+	<link type="text/css" href="css/trontastic/jquery-ui-1.8.13.custom.css" rel="stylesheet" />	
 	<link	type="text/css" href="css/style.css" rel="stylesheet">
+
 	<script type="text/javascript" src="js/jQ.js"></script>
 	<script type="text/javascript" src="js/jquery.corners.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
 	<script type="text/javascript" src="js/vars.js"></script>
 	<script type="text/javascript" src="js/css.js"></script>
 	<script type="text/javascript" src="js/handlers.js"></script>
@@ -24,6 +27,53 @@
 		  </tr>
 		  <tr>
 			<td colspan="2"><div id="message"></div></td>
+		  </tr>
+		  		  <tr>
+			<td colspan="2">
+				<link type="text/css" href="css/trontastic/jquery-ui-1.8.13.custom.css" rel="stylesheet" />	
+					<script>
+						$(function() {
+							$( "#slider-range" ).slider({
+								range: true,
+								min: 1900,
+								max: 2011,
+								values: [ 1950, 2011 ],
+								slide: function( event, ui ) {
+									$( "#amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+								}
+							});
+							$( "#amount" ).val($( "#slider-range" ).slider( "values", 0 ) +
+								" - " + $( "#slider-range" ).slider( "values", 1 ) );
+						});
+					</script>
+					<p>
+						<label for="amount">Publication Year Range:</label>
+						<input type="text" id="amount" style="font-weight:bold;" />
+					</p>
+
+					<div id="slider-range"></div>
+					
+<!-- 				<script type="text/javascript">
+						$(function(){
+							$('#slider').slider({
+								range: true,
+								min: 1900,
+								max: 2011,
+								values: [1990, 2011]
+								slide: function( event, ui ) {
+									$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+								}
+							});
+							$( "#amount" ).val( "$" + $( "#slider" ).slider( "values", 0 ) + " - $" + $( "#slider" ).slider( "values", 1 ) );
+						});
+						console.log("TEST");
+				</script>
+				<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" />
+
+				<div id="slider"></div> -->
+				<div id="searchoptions">
+					
+				</div></td>
 		  </tr>
 		  <tr>
 			<td width="25%"><a id="submit" href="javascript:">Submit</a>
