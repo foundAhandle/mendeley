@@ -1,0 +1,32 @@
+Use Case
+
+A Mendeley user is having a hard time locating relevant research using Mendeley's search features. In order to facilitate their search for relevant research, they login to our custom search application.
+
+Like with any traditional search engine, the user will enter their search terms and submit them. However, they also have the option of tailoring their search terms to find increasingly relevant materials. By using the following options, they can modify the oreder in which search results are displayed to prevent having to wade through hundreds of search results. User can select from the following options:
+
+	Search Author Name Only - this will only search for papers using the authors name
+
+	Prioritize Author - This will prioritize matches to author names, while still allowing other key words to be included in the search.
+
+	Search Publication Name Only - this will only search for papers using the Publication name
+
+	Prioritize Publication - This will prioritize matches to publication names, while still allowing other key words to be included in the search.
+
+	Search Title Name Only - this will only search for papers using the authors name
+
+	Prioritize Title - This will prioritize matches to title names, while still allowing other key words to be included in the search.
+
+	Define publication year
+
+One user may search for "page rank Sergey Brin"
+	They may only want to emphasize Sergey Brin, so his work comes up first, and would prioritize author.
+	If they wanted to focus more on page rank articles that mention Sergey Brin, they would prioritize title.
+
+Once the initial search is complete, the user will see a modified set of search options that will allow them to conduct dynamic, on page sorting of the returned results. Of the 1000 results that are pulled with each request, the user can prioritize Author, Publication, or Title, and the results will resort with the new prioritization.
+	
+In order to help determine the popularity and geographic readership of a paper, when hovering over a search results, the user will see the countries in which the paper has been read and also the number of readers on Mendeley.
+
+If time allows:
+Along with each page result, the user will be able to click on a link that leads to a POC idea that Mendeley really liked, but that their API doesn't support yet:
+It will take the user to a simple page where they can see the spread of readership over time.
+The user will slide a bar underneath a geographic map that will display the number of readers in countries along a timeline. This will allow a user to visually see the spread of the paper across the world. This would be very useful for authors to see the impact of their various efforts to disseminate their work.
