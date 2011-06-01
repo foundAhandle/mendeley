@@ -1,18 +1,23 @@
-#container {
+
+#top {
   width:			600px;
-/*height:			400px;*/
   margin-left:		100px;
-  text-align:		left;
   padding:			20px 50px 15px 50px;
   background-color:	#BBB;
 }
 
-fieldset {
-  border-style:		none;
+#bottom {
+  margin-left:		100px;
+  padding:			0px 0px 0px 0px;
 }
 
 font {
   font-size:		14px;
+}
+
+.topDivs {
+  width:			400px;
+  padding:			10px 0px 5px 20px;
 }
 
 #search {
@@ -52,6 +57,18 @@ font {
   border-bottom:	2px solid #000;
 }
 
+#clear {
+  color:			#000;
+  text-decoration:	none;
+  border:			none;
+  border-bottom:	2px solid #999;
+}
+
+#clear:hover {
+  color:			#999;
+  border-bottom:	2px solid #000;
+}
+
 a {
   color:			#000;
   text-decoration:	none;
@@ -64,15 +81,22 @@ a:hover {
   border-bottom:	2px solid #000;
 }
 
+.spacer {
+  height:			20px;
+}
+
 #results {
   width:			550px;
-  margin:			0px 0px 0px 150px;
-  text-align:		left;
+  height:			490px;
+  overflow:			auto;
+  margin:			0px 0px 0px 0px;
+  list-style-type:	none;
+  float:			left;
 }
 
 .paper {
   margin-top:		15px;
-  text-align:		left;
+  margin-right:		15px;
   padding:			5px 0px 5px 10px;
   background-color:	#CCC;
 }

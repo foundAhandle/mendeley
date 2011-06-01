@@ -7,4 +7,7 @@ $(function(){
 
   //add bindings
   bindings();
+  
+  //loadSliders
+  displayYearSlider();
 });

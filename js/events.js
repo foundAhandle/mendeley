@@ -1,9 +1,16 @@
 function bindings(){
   //bind 'key up' -> search input
-  $('#search').keyup(checkInput)
+  $('#search').keyup(checkInput);
 
   //bind 'click' -> submit button
-  $('#submit').click(send)
+  $('#submit').click(sendClick);
+
+  //bind 'click' -> clear button
+  $('#clear').click(clearClick);
   
-  $('#score').click(customSort)
+  //bind 'click' -> Resort
+  $('#score').click(reSort);
+
+  //bind 'key up' -> return key
+//$.bind('keyup',checkInput);
 }

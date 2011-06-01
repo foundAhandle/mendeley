@@ -31,101 +31,56 @@ function checkInput(){
   }
 }
 
-//toggle message
-function toggleMessage(clearOrMessage){
-  //show or clear a message
-  $('#message').text(clearOrMessage?'':'invalid search term');
-}
-
-//toggle submit button
-function toggleSubmit(showOrHide){
-  //if hiding the button AND the button is currently visible
-  if(!showOrHide && $('#submit').is(':visible'))
-	//hide the submit button
-	$('#submit').hide(300);
-  //else if showing the button AND the button is currently hidden
-  else if(showOrHide && !$('#submit').is(':visible'))
-	//show the submit button
-	$('#submit').show(300);
-}
-
-//toggle score button
-function toggleScore(showOrHide){
-  //if hiding the button AND the button is currently visible
-  if(!showOrHide && $('#score').is(':visible'))
-	//hide the submit button
-	$('#score').hide(300);
-  //else if showing the button AND the button is currently hidden AND there is at least one 'paper' div
-  else if(showOrHide && !$('#score').is(':visible') && $('#results').children().length>0)
-	//show the submit button
-	$('#score').show(300);
-}
-
-//send
-function send(){
+//send click
+function sendClick(){
   //clear previous results
   clear(false);
-  
-  //fade in loading indicator
-  $('#spinner1').fadeIn(200,function(){
-	//load json via api
-	$.getJSON(PROXY_URL+SEARCH_PATH+$('#search').val()+'/',CONSUMER_KEY,function(response,status,xhr){
-	  //if error
-	  if(status=='error')
-		//show the error
-		$('#message').text('Sorry but there was an error: '+xhr.status+' '+xhr.statusText);
-	  //else (if no error)
-	  else
-	  {
-		//for each json entry
-		$.each(response.documents,function(key,val){
-		  //results->div
-		  $('<div>',{'id':val.uuid,'class':'paper'}).appendTo('#results');
 
-		  //get the title
-		  title = (val.title.length>70)?(val.title.substr(0,70)+'...'):val.title;
-
-		  //div->anchor
-		  $('<a>',{'href':val.mendeley_url,'target':'_blank','html':title}).appendTo('#'+val.uuid);
-
-		  //div->break
-		  $('<br>').appendTo('#'+val.uuid);
-
-		  //div->authors
-		  $('<span>',{'html':val.authors}).appendTo('#'+val.uuid);
-
-		  //div->break
-		  $('<br>').appendTo('#'+val.uuid);
-
-		  //div->year
-		  $('<span>',{'html':val.year}).appendTo('#'+val.uuid);
-
-		  //corners not working properly if height is set via css
-		  $('#'+val.uuid).css({'height':60});
-
-		  //round corners
-		  $('#'+val.uuid).corners('5px');
-		});
-
-		//fade out the indicator
-		$('#spinner1').fadeOut(200);
-	  }
-
-	  //toggle score button
-	  toggleScore(status!='error');
-	});//end load json via api
-  });//end fade in loading indicator
+  //call send with proper url and utility function
+  send(PROXY_URL+SEARCH_PATH+$('#search').val()+'/',CONSUMER_KEY,populate);
 }
 
+//clear click
+function clearClick(){
+  //clear previous results
+  clear(true);
+}
+
+//mouse over handler
+function over(){
+  //set the country
+//console.log(tableData);
+//      tableData.setValue(0, 0, 'United States');
+//      tableData.setValue(0, 1, 300);
+//
+//geomap.setSelection([{row:1,column:null}]);
+//console.log(geomap.getSelection());
+/*
+var view = new google.visualization.DataView(tableData);
+view.setRows(view.getFilteredRows([{column: 1, minValue: 700}]));
+geomap.draw(view,{sortColumn:1});
+//geomap.setSelection(view);
+*/
+//geomap.draw(tableData,tableConfigOpts);
+//drawMap(false);
+}
+
+//mouse out handler
+function out(){
+  //
+console.log('out');
+};
+
+
 //function customSort(pAuthor, pPub, pTitle, pYear, pTwitter){
-function customSort(){
-	$.getJSON(PROXY_URL+SEARCH_PATH+$('#search').val()+'/',CONSUMER_KEY,function(response,status,xhr){
+function customSort(response){
+//	$.getJSON(PROXY_URL+SEARCH_PATH+$('#search').val()+'/',CONSUMER_KEY,function(response,status,xhr){
 		
 		pAuthor = false; 
 		pPub = false; 
 		pTitle = false; 
-		pYear1  = 1995; 
-		pYear2  = 2000; 
+		pYear1 = $( "#slider-range" ).slider( "values", 0 );
+		pYear2 = $( "#slider-range" ).slider( "values", 1 );
 		pTwitter = false; 
 		
 		var SearchTerms = $('#search')[0].value;
@@ -215,8 +170,6 @@ function customSort(){
 				
 			}
 			
-			
-			
 			/* console.log(val.sortOrder);
 			console.log(lcAuthors);
 			console.log(lcTitle); */
@@ -233,8 +186,33 @@ function customSort(){
 			console.log(val.sortOrder);
 			console.log(val.year);
 		});
-		//for(var i=0, itemSize=papers.length; i<itemSize; i++) {
-	//		console.log(papers.title[0]);
-		//}
+//	});
+}
+
+function reSort(){
+	customSort(storeResponse);
+	$('#results').children().remove();
+	populate(storeResponse);
+}
+
+function displayYearSlider(){
+	
+	//$('.yearSlider').append('<div id="slider-range">	</div>');	
+	$(function() {
+		$( "#slider-range" ).slider({
+			range: true,
+			min: 1900,
+			max: 2011,
+			values: [ 1950, 2011 ],
+			slide: function( event, ui ) {
+				$( "#amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+			}
+		});
+		$( "#amount" ).val($( "#slider-range" ).slider( "values", 0 ) +	" - " + $( "#slider-range" ).slider( "values", 1 ) );
+		// startYear = $( "#slider-range" ).slider( "values", 0 );
+		// endYear = $( "#slider-range" ).slider( "values", 1 );
+		//console.log("end year =" + endYear);
 	});
+				
+	
 }
