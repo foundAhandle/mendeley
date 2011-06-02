@@ -98,10 +98,19 @@ function populate(response){
   //for each json entry
   $.each(response.documents,function(key,val){
 	//results->div
+	
+	if (!val.title){
+		return;
+	}
+	
 	$('<div>',{'id':val.uuid,'class':'paper'}).appendTo('#results');
 
 	//get the title
-	title = (val.title.length>70)?(val.title.substr(0,70)+'...'):val.title;
+	//if (typeof val['title'] !== "undefined" || val['title'] !== null) {
+				title = (val.title.length>70)?(val.title.substr(0,70)+'...'):val.title;
+		//	}
+			
+	
 
 	//div->anchor
 	$('<a>',{'href':val.mendeley_url,'target':'_blank','html':title,'mouseover':over,'mouseout':out}).appendTo('#'+val.uuid);

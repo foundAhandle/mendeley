@@ -4,11 +4,12 @@
 	<!-- css -->
 <!-- 	<link type="text/css" href="css/trontastic/jquery-ui-1.8.13.custom.css" rel="stylesheet" />	 -->
 	<link type="text/css" href="css/style.css" rel="stylesheet">
+	<link type="text/css" href="css/trontastic/jquery-ui-1.8.13.custom.css" rel="stylesheet" />
 	<!--    <link type="text/css" href="css/ex.css?3.2" rel="stylesheet"/>-->
 
 	<!-- jQuery -->
 	<script type="text/javascript" src="js/jQ.js"></script>
-	<script type="text/javascript" src="js/jquery.corners.min.js"></script>
+<script type="text/javascript" src="js/jquery.corners.min.js"></script> 
 	<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
 	
 	<!-- google -->
@@ -34,11 +35,61 @@
 
 	<!-- container -->
 	<div id="container">
-	  <!-- top -->
 	  
+	  
+	   <!--Search Options-->
+		<div style="float:right;margin-right: 350px;margin-top:-40px;">
+			<p class="ui-state-default round-me" style="padding:4px;margin-top:4em;">
+				<span class="ui-icon ui-icon-circle-zoomout" style="float:left; margin:-2px 5px 0 0;"></span>
+				Search Options
+			</p>
+			
+			<!--Year-->
+			<div id="yearSlider">
+				
+				<span>
+						<label for="amount" class="ui-state-default ui-corner-all" style="padding:4px;margin-top:4em;">
+							Publication Year Range: 
+							<input type="text" id="amount" class="ui-state-default ui-corner-all" style="text-align:center; border:0px;font-size:18px;width:120px" />
+						</label>
+				</span>	
+				<p></p>
+				<div id="slider-range" style="width:480px;"></div>
+			</div> 
+			<p></p>
+			
+			<!--vert sliders-->
+			<div style="float:left;">
+				
+				<div id="authslider" style="height:100px;"></div>
+				<label for="amount" class="ui-state-default ui-corner-all" style="padding:4px;margin-top:4em;height:40px;">
+					Author: 
+					<input type="text" id="authorPriority" class="ui-state-default ui-corner-all" style="text-align:right; border:0px;font-size:18px;width:30px;" />
+					%
+				</label>
+			</div>	
+			<div style="float:left;">
+				<div id="titleslider" style="height:100px;"></div>
+				<label for="amount" class="ui-state-default ui-corner-all" style="padding:4px;margin-top:4em;height:40px;">
+					Title: 
+					<input type="text" id="titlePriority" class="ui-state-default ui-corner-all" style="text-align:right; border:0px;font-size:18px;width:30px" />
+					%
+				</label>
+			</div>
+			<div style="float:left;">
+				<div id="pubslider" style="height:100px;"></div>
+				<label for="amount" class="ui-state-default ui-corner-all" style="padding:4px;margin-top:4em;height:40px;">
+					Publication: 
+					<input type="text" id="pubPriority" class="ui-state-default ui-corner-all" style="text-align:right; border:0px;font-size:18px;width:30px" />
+					%
+				</label>
+			</div>
+		</div>
+		
+		<!-- top -->
 	  <div id="top">
 		<div class="topDivs">
-		  <font>Search by Tag or by Paper Title&nbsp;&nbsp;&nbsp;<font>separate terms with a semi-colon</font></font>
+		  <font>Search by Tag or by Paper Title</font>
 		</div>
 
 		<div class="topDivs">
@@ -48,14 +99,8 @@
 		<div style="padding: 0px 0px 0px 25px;">
 		  <font id="message"></font>
 		</div>
-		<div id="yearSlider">
-			<link type="text/css" href="css/trontastic/jquery-ui-1.8.13.custom.css" rel="stylesheet" />
-			<span>
-					<label for="amount">Publication Year Range:</label>
-					<input type="text" id="amount" style="font-weight:bold; border:none; background-color:	#BBB;color:red;" />
-			</span>	
-			<div id="slider-range">	</div>
-		</div> 
+		
+		
 		
 		<div class="topDivs">
 		  <!-- submit -->
@@ -77,7 +122,9 @@
 		</div>
 
 	  </div>
-
+			
+		
+		
 	  <!-- bottom -->
 	  <div id="bottom">
 		<!-- spacer -->
@@ -87,10 +134,13 @@
 		  <!-- results -->
 		  <ul id="results"></ul>
 
+		  
+		 
+
 		  <!-- map -->
-<div style="background-color:#4A5584;float:left;">
+<!-- <div style="background-color:#4A5584;float:left;">
 TWO
-</div>
+</div> -->
 		</div><!-- end results and map -->
 	  </div><!-- end bottom -->
 	</div>

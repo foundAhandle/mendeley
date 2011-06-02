@@ -76,11 +76,17 @@ console.log('out');
 function customSort(response){
 //	$.getJSON(PROXY_URL+SEARCH_PATH+$('#search').val()+'/',CONSUMER_KEY,function(response,status,xhr){
 		
-		pAuthor = false; 
-		pPub = false; 
-		pTitle = false; 
+		authorWeight = $( "#authslider" ).slider( "values", 1 ); 
+		authorWeight = Math.abs(authorWeight-100);
+		titleWeight =  $( "#titleslider" ).slider( "values", 1 ); 
+		titleWeight = Math.abs(titleWeight-100);
+		pubWeight = $( "#pubslider" ).slider( "values", 1 ); 
+		pubWeight = Math.abs(pubWeight-100);
 		pYear1 = $( "#slider-range" ).slider( "values", 0 );
 		pYear2 = $( "#slider-range" ).slider( "values", 1 );
+		console.log("Author Weight = " + authorWeight);
+		console.log("Title Weight = " + titleWeight);
+		console.log("Publication Weight = " + pubWeight);
 	
 		var sortedResponse = response;
 		
@@ -88,22 +94,22 @@ function customSort(response){
 		SearchTerms = SearchTerms.split(';');
 		
 		 //Prioritize Author
-		 var authorWeight = .5;
+		 /* var authorWeight = .5;
 		 if (pAuthor ){
 			authorWeight = .1;
-		 }
+		 } */
 		  
 		 //Prioritize Publication
-		 var pubWeight = 1;
+		/*  var pubWeight = 1;
 		 if (pPub){
 			pubWeight = .1;
-		 }
+		 } */
 		 
 		 //Prioritize Title
-		 var titleWeight = .8;
+		/*  var titleWeight = .8;
 		 if (pTitle ){
 			titleWeight = .1;
-		 }
+		 } */
 		 
 		//Filter Year
 		
@@ -139,8 +145,13 @@ function customSort(response){
 			var i=key;
 			i=i+.1;
 			
-			var lcAuthors=val.authors.toLowerCase();
-			lcAuthors = lcAuthors.replace(/[^\w\s]/g, "");
+			if (val.authors != null) {
+				var lcAuthors=val.authors.toLowerCase();
+				lcAuthors = lcAuthors.replace(/[^\w\s]/g, "");
+			}
+			else {
+				var lcAuthors = "";
+			}
 			
 			if (val.publication_outlet != null) {
 				var lcPublication=val.publication_outlet.toLowerCase();
@@ -150,8 +161,13 @@ function customSort(response){
 				var lcPublication = "";
 			}
 			
-			var lcTitle=val.title.toLowerCase();
-			lcTitle = lcTitle.replace(/[^\w\s]/g, "");
+			if (val.title != null) {
+				var lcTitle=val.title.toLowerCase();
+				lcTitle = lcTitle.replace(/[^\w\s]/g, "");
+			}
+			else {
+				var lcTitle = "";
+			}
 			
 			var SLength = SearchTerms.length;
 			
@@ -197,7 +213,7 @@ function reSort(){
 	populate(storeResponse);
 }
 
-function displayYearSlider(){
+function displaySliders(){
 	
 	$(function() {
 		$( "#slider-range" ).slider({
@@ -208,10 +224,82 @@ function displayYearSlider(){
 			slide: function( event, ui ) {
 				$( "#amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
 			}
+		
 		});
 
 		$( "#amount" ).val($( "#slider-range" ).slider( "values", 0 ) +	" - " + $( "#slider-range" ).slider( "values", 1 ) );
 	});
-				
 	
+/*  	$(function() {
+		// setup search option sliders
+		$( "#searchSliders > span" ).each(function() {
+			// read initial values from markup and remove that
+			//var value = parseInt( $( this ).text(), 10 );
+			$( this ).empty().slider({
+				value: 10,
+				range: "min",
+				animate: true,
+				orientation: "vertical"
+			});
+		});
+	});  */
+	
+	
+}
+
+function displayAuthorSlider(){
+
+	$(function() {
+		$( "#authslider" ).slider({
+			orientation: "vertical",
+			range: "min",
+			min: 0,
+			max: 100,
+			value: 60,
+			slide: function( event, ui ) {
+				$( "#authorPriority" ).val( ui.value );
+			}
+		});
+		$( "#authorPriority" ).val( $( "#authslider" ).slider( "value" ) );
+	}); 
+	
+
+}
+
+function displayTitleSlider(){
+
+	$(function() {
+		$( "#titleslider" ).slider({
+			orientation: "vertical",
+			range: "min",
+			min: 0,
+			max: 100,
+
+			value: 60,
+			slide: function( event, ui ) {
+				$( "#titlePriority" ).val( ui.value );
+			}
+		});
+		$( "#titlePriority" ).val( $( "#titleslider" ).slider( "value" ) );
+	}); 
+	
+
+}
+function displayPublicationSlider(){
+
+	$(function() {
+		$( "#pubslider" ).slider({
+			orientation: "vertical",
+			range: "min",
+			min: 0,
+			max: 100,
+			value: 60,
+			slide: function( event, ui ) {
+				$( "#pubPriority" ).val( ui.value );
+			}
+		});
+		$( "#pubPriority" ).val( $( "#pubslider" ).slider( "value" ) );
+	}); 
+	
+
 }

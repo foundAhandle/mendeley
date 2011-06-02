@@ -94,9 +94,26 @@ a:hover {
   float:			left;
 }
 
+#searchSliders span {
+		height:120px; float:left; margin:15px
+}
+
+.rot-neg-90 {
+  /* rotate -90 deg*/
+  -moz-transform: rotate(270deg);
+  -moz-transform-origin: 50% 50%;
+  -webkit-transform: rotate(270deg);
+  -webkit-transform-origin: 50% 50%;
+  /* IE support too convoluted for now */
+}
+
 .paper {
   margin-top:		15px;
   margin-right:		15px;
   padding:			5px 0px 5px 10px;
   background-color:	#CCC;
+}
+
+.round-me {
+	border-radius:5px;
 }
