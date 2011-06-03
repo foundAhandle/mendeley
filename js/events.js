@@ -2,6 +2,9 @@ function bindings(){
   //bind 'key up' -> search input
   $('#search').keyup(checkInput);
 
+  //bind 'key up' -> author search input
+  $('#authsearch').keyup(checkInput);
+  
   //bind 'click' -> submit button
   $('#submit').click(sendClick);
 

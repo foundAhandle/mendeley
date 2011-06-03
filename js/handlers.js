@@ -1,7 +1,11 @@
 //check input
 function checkInput(){
   //if the search input is blank
-  if($('#search').val()==''){
+	var SearchString = $('#search').val();
+	var authSearchString = $('#authsearch').val();
+	var comboSearchString = SearchString + ";" + authSearchString;  
+	//console.log(comboSearchString);
+  if(SearchString=='' && authSearchString==''){
 	//message is blank
 	toggleMessage(true);
 
@@ -11,15 +15,29 @@ function checkInput(){
 	//score button is hidden
 	toggleScore(false);
   }
+  
   //else (if the search input is not blank)
+  
   else
   {
 	//make a new regex object
+	
 	var rE = new RegExp(SEARCH_REGEX);
 
 	//valid or not flag
-	var validOrNot = rE.test($('#search').val());
-
+	
+	if(SearchString !="" && authSearchString !=""){
+		var validOrNot = rE.test(comboSearchString);
+		//console.log("neither blank");
+	}
+	else if (SearchString == "") {
+		var validOrNot = rE.test(authSearchString);
+		//console.log("paper blank, author not");
+	}
+	else{
+		var validOrNot = rE.test(SearchString);
+		//console.log("author blank, paper not");
+	}
 	//set message
 	toggleMessage(validOrNot);
 
@@ -33,11 +51,28 @@ function checkInput(){
 
 //send click
 function sendClick(){
-  //clear previous results
-  clear(false);
+	//clear previous results
+	clear(false);
 
-  //call send with proper url and utility function
-  send(PROXY_URL+SEARCH_PATH+$('#search').val()+'/',CONSUMER_KEY,populate);
+	//call send with proper url and utility function
+
+	var SearchString = $('#search').val();
+	var authSearchString = $('#authsearch').val();
+	var comboSearchString = authSearchString + ";" + SearchString;
+	console.log(comboSearchString);
+	if (SearchString != "" && authSearchString != "") {
+		send(PROXY_URL+SEARCH_PATH+comboSearchString+'/',CONSUMER_KEY,populate);
+	console.log("It's a 1!");
+	}
+	else if (authSearchString === "") {
+	console.log("It's a 2!");
+		send(PROXY_URL+SEARCH_PATH+$('#search').val()+'/',CONSUMER_KEY,populate);
+	}
+	else {
+		send(PROXY_URL+AUTHSEARCH_PATH+$('#authsearch').val()+'/',CONSUMER_KEY,populate);
+		console.log("It's a 3!");
+	}
+
 }
 
 //clear click
@@ -77,11 +112,11 @@ function customSort(response){
 //	$.getJSON(PROXY_URL+SEARCH_PATH+$('#search').val()+'/',CONSUMER_KEY,function(response,status,xhr){
 		
 		authorWeight = $( "#authslider" ).slider( "values", 1 ); 
-		authorWeight = Math.abs(authorWeight-100);
+		authorWeight = Math.abs(authorWeight-100)+1;
 		titleWeight =  $( "#titleslider" ).slider( "values", 1 ); 
-		titleWeight = Math.abs(titleWeight-100);
+		titleWeight = Math.abs(titleWeight-100)+1;
 		pubWeight = $( "#pubslider" ).slider( "values", 1 ); 
-		pubWeight = Math.abs(pubWeight-100);
+		pubWeight = Math.abs(pubWeight-100)+1;
 		pYear1 = $( "#slider-range" ).slider( "values", 0 );
 		pYear2 = $( "#slider-range" ).slider( "values", 1 );
 		console.log("Author Weight = " + authorWeight);

@@ -1,25 +1,25 @@
 <html lang="en">
   <head>
-	<title>Mendely App</title>
+	<title>Mendely Dynamic Search</title>
 	<!-- css -->
 <!-- 	<link type="text/css" href="css/trontastic/jquery-ui-1.8.13.custom.css" rel="stylesheet" />	 -->
 	<link type="text/css" href="css/style.css" rel="stylesheet">
-	<link type="text/css" href="css/trontastic/jquery-ui-1.8.13.custom.css" rel="stylesheet" />
+	<link type="text/css" href="css/custom-theme/jquery-ui-1.8.13.custom.css" rel="stylesheet" />
 	<!--    <link type="text/css" href="css/ex.css?3.2" rel="stylesheet"/>-->
 
 	<!-- jQuery -->
 	<script type="text/javascript" src="js/jQ.js"></script>
-<script type="text/javascript" src="js/jquery.corners.min.js"></script> 
+	<!-- <script type="text/javascript" src="js/jquery.corners.min.js"></script>   -->
 	<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
 	
 	<!-- google -->
-<!--	<script type='text/javascript' src="https://www.google.com/jsapi"></script>
+	<!--<script type='text/javascript' src="https://www.google.com/jsapi"></script>
 	<script type="text/javascript" src="js/map.js"></script>-->
 
 	<!-- mine -->
 
 	<script type="text/javascript" src="js/vars.js"></script>
-	<script type="text/javascript" src="js/css.js"></script>
+<!--	<script type="text/javascript" src="js/css.js"></script>-->
 	<script type="text/javascript" src="js/handlers.js"></script>
 	<script type="text/javascript" src="js/events.js"></script>
 	<script type="text/javascript" src="js/util.js"></script>
@@ -32,97 +32,117 @@
 	<script type="text/javascript" src="js/ready.js"></script>
   </head>
   <body>
-
-	<!-- container -->
-	<div id="container">
-	  
-	  
-	   <!--Search Options-->
-		<div style="float:right;margin-right: 350px;margin-top:-40px;">
-			<p class="ui-state-default round-me" style="padding:4px;margin-top:4em;">
-				<span class="ui-icon ui-icon-circle-zoomout" style="float:left; margin:-2px 5px 0 0;"></span>
-				Search Options
+  
+	<div id="wrap">
+	
+	<!--Logo and header-->
+		<div style="float:left">
+			<a href="http://www.mendeley.com/" style="border-bottom:	0px;float:left">
+				<img src="images/logo-mendeley.png" alt="Mendeley" />
+			</a>
+		</div>
+		<div style="float:left">
+			<p class="ui-state-default round-me" style="padding:4px;width:347px;margin-left:10px;margin-top:20px;">
+				<span class="ui-icon ui-icon-circle-zoomout" style="float:left; margin:2px 5px 0 0;"></span>
+				<span style="font: 1.5em Georgia, serif;letter-spacing: 2px;">Dynamic Search Interface</span>
 			</p>
+		</div>
+		
+	<!-- container -->
+	<div id="container" class="ui-widget-content round-me" style="height:250px;float:left;">
+				
+		<div style="float:left;">
+
+		<!--Search Fields-->
+			<div class="topDivs">
+				  <span style="margin-left:2.5px;">paper</span>
+			</div>
+
+			<div class="topDivs">
+			  <input id="search" type="text" style="margin-top:-7px;"/>
+			</div>
+
+			<div class="topDivs">
+				  <span style="margin-left:2.5px;">author</span>
+			</div>
+
+			<div class="topDivs">
+			  <input id="authsearch" type="text" style="margin-top:-7px;"/>
+			</div>
+			
+			<div style="padding: 5px 0px 0px 7px;">
+			  <font id="message"></font>
+			</div>
+				
+			<div class="topDivs">
+
+			<!-- submit -->
+			  <span style="float:left;width:100px;margin-left:3px;">
+				<a id="submit" href="javascript:">submit</a>
+				<img id="spinner1" src="http://i.imgur.com/m24rs.gif" alt="loading..."/>
+			  </span>
+
+			  <!-- score -->
+			  <span style="float:left; width:100px">
+				<a id="score" href="javascript:">Resort</a>
+				<img id="spinner2" src="http://i.imgur.com/m24rs.gif" alt="loading..."/>
+			  </span>
+
+			  <!-- clear -->
+			  <span style="float:left;">
+				<a id="clear" href="javascript:" style="margin-left:3px;">clear</a>
+			  </span>
+
+			  </div>
+		</div>
+
+	   <!--Search Options-->
+		<div style="float:left;margin-right:0px;margin-top:10px;">
+			
 			
 			<!--Year-->
-			<div id="yearSlider">
+			<div id="yearSlider" style="margin-top:-5px">
 				
 				<span>
-						<label for="amount" class="ui-state-default ui-corner-all" style="padding:4px;margin-top:4em;">
-							Publication Year Range: 
-							<input type="text" id="amount" class="ui-state-default ui-corner-all" style="text-align:center; border:0px;font-size:18px;width:120px" />
+						<label for="amount" style="padding:4px;">
+							publication years
+							<input type="text" id="amount" class="ui-state-default round-me" style="text-align:center;border:0px;font-size:18px;width:120px" />
 						</label>
 				</span>	
 				<p></p>
-				<div id="slider-range" style="width:480px;"></div>
+				<div id="slider-range" style="width:250px;"></div>
 			</div> 
 			<p></p>
 			
 			<!--vert sliders-->
+			
 			<div style="float:left;">
-				
-				<div id="authslider" style="height:100px;"></div>
-				<label for="amount" class="ui-state-default ui-corner-all" style="padding:4px;margin-top:4em;height:40px;">
-					Author: 
-					<input type="text" id="authorPriority" class="ui-state-default ui-corner-all" style="text-align:right; border:0px;font-size:18px;width:30px;" />
-					%
-				</label>
+				<p class="vertTitle">
+					author		
+				</p>
+				<input type="text" id="authorPriority" class="ui-state-default round-me vertOutput"/>
+				<div id="authslider" class="vertSlider"></div>
 			</div>	
+			
 			<div style="float:left;">
-				<div id="titleslider" style="height:100px;"></div>
-				<label for="amount" class="ui-state-default ui-corner-all" style="padding:4px;margin-top:4em;height:40px;">
-					Title: 
-					<input type="text" id="titlePriority" class="ui-state-default ui-corner-all" style="text-align:right; border:0px;font-size:18px;width:30px" />
-					%
-				</label>
+				<p class="vertTitle">
+					title
+				</p>
+				<input type="text" id="titlePriority" class="ui-state-default round-me vertOutput"/>
+				<div id="titleslider" class="vertSlider"></div>
 			</div>
+			
 			<div style="float:left;">
-				<div id="pubslider" style="height:100px;"></div>
-				<label for="amount" class="ui-state-default ui-corner-all" style="padding:4px;margin-top:4em;height:40px;">
-					Publication: 
-					<input type="text" id="pubPriority" class="ui-state-default ui-corner-all" style="text-align:right; border:0px;font-size:18px;width:30px" />
-					%
-				</label>
+				<p class="vertTitle">
+					publication
+				</p>
+				<input type="text" id="pubPriority" class="ui-state-default round-me vertOutput" />
+				<div id="pubslider" class="vertSlider"></div>
 			</div>
 		</div>
 		
 		<!-- top -->
-	  <div id="top">
-		<div class="topDivs">
-		  <font>Search by Tag or by Paper Title</font>
-		</div>
-
-		<div class="topDivs">
-		  <input id="search" type="text"/>
-		</div>
-
-		<div style="padding: 0px 0px 0px 25px;">
-		  <font id="message"></font>
-		</div>
-		
-		
-		
-		<div class="topDivs">
-		  <!-- submit -->
-		  <span style="position:absolute;">
-			<a id="submit" href="javascript:">Submit</a>
-			<img id="spinner1" src="http://i.imgur.com/m24rs.gif" alt="loading..."/>
-		  </span>
-
-		  <!-- score -->
-		  <span style="position:absolute; left:300px">
-			<a id="score" href="javascript:">Resort</a>
-			<img id="spinner2" src="http://i.imgur.com/m24rs.gif" alt="loading..."/>
-		  </span>
-
-		  <!-- clear -->
-		  <span style="float:right">
-			<a id="clear" href="javascript:">Clear</a>
-		  </span>
-		</div>
-
-	  </div>
-			
+	 			
 		
 		
 	  <!-- bottom -->
@@ -130,7 +150,7 @@
 		<!-- spacer -->
 		<div class="spacer"></div>
 		<!-- results and map -->
-		<div>
+		<div style="margin-top:250px;">
 		  <!-- results -->
 		  <ul id="results"></ul>
 
@@ -138,14 +158,15 @@
 		 
 
 		  <!-- map -->
-<!-- <div style="background-color:#4A5584;float:left;">
-TWO
-</div> -->
+	<!-- <div style="background-color:#4A5584;float:left;">
+	TWO
+	</div> -->
 		</div><!-- end results and map -->
 	  </div><!-- end bottom -->
 	</div>
 
 	<!-- protovis -->
-    <script type="text/javascript" src="js/proto.js"></script>
+    <!-- <script type="text/javascript" src="js/proto.js"></script> -->
+	</div>
   </body>
 </html>

@@ -4,6 +4,8 @@ function clear(clearAll){
   if(clearAll){
 	//clear search input
 	$('#search').val('');
+	
+	$('#authsearch').val('');
 
 	//hide submit button
 	toggleSubmit(false);
@@ -103,7 +105,7 @@ function populate(response){
 		return;
 	}
 	
-	$('<div>',{'id':val.uuid,'class':'paper'}).appendTo('#results');
+	$('<div>',{'id':val.uuid,'class':'ui-widget-content round-me paper'}).appendTo('#results');
 
 	//get the title
 	//if (typeof val['title'] !== "undefined" || val['title'] !== null) {
@@ -128,9 +130,9 @@ function populate(response){
 	$('<span>',{'html':val.year}).appendTo('#'+val.uuid);
 
 	//corners not working properly if height is set via css
-	$('#'+val.uuid).css({'height':60});
+//	$('#'+val.uuid).css({'height':60});
 
 	//round corners
-	$('#'+val.uuid).corners('5px');
+//	$('#'+val.uuid).corners('5px');
   });//end for each json entry
 }
