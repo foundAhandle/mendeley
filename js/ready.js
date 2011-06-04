@@ -3,8 +3,17 @@ $(function(){
   clear(true);
 
   //update css
-  updateCss();
+  //updateCss();
 
   //add bindings
   bindings();
+  
+  //loadSliders
+  
+  displaySliders();
+  displayAuthorSlider();
+  displayTitleSlider();
+  displayPublicationSlider();
+  displayPaperQuantSlider();
+  
 });
