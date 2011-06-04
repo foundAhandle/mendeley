@@ -9,8 +9,11 @@ $(function(){
   bindings();
   
   //loadSliders
+  
   displaySliders();
   displayAuthorSlider();
   displayTitleSlider();
   displayPublicationSlider();
+  displayPaperQuantSlider();
+  
 });

@@ -9,12 +9,19 @@ function clear(clearAll){
 
 	//hide submit button
 	toggleSubmit(false);
-
+	toggleNext(false);
+	togglePrior(false);
+	
+	$("#currentpage").text("");
+	
 	//hide submit spinner
 	$('#spinner1').hide();
 
 	//hide score spinner
 	$('#spinner2').hide();
+	
+	//reset page number
+	pageNumber = 0;
   }
 
 //HIDE MAP
@@ -43,6 +50,28 @@ function toggleSubmit(showOrHide){
   else if(showOrHide && !$('#submit').is(':visible'))
 	//show the submit button
 	$('#submit').show(300);
+}
+
+function toggleNext(showOrHide){
+  //if hiding the button AND the button is currently visible
+  if(!showOrHide && $('#next').is(':visible'))
+	//hide the submit button
+	$('#next').hide(300);
+  //else if showing the button AND the button is currently hidden
+  else if(showOrHide && !$('#next').is(':visible'))
+	//show the submit button
+	$('#next').show(300);
+}
+
+function togglePrior(showOrHide){
+  //if hiding the button AND the button is currently visible
+  if(!showOrHide && $('#previous').is(':visible'))
+	//hide the submit button
+	$('#previous').hide(300);
+  //else if showing the button AND the button is currently hidden
+  else if(showOrHide && !$('#previous').is(':visible'))
+	//show the submit button
+	$('#previous').show(300);
 }
 
 //toggle score button

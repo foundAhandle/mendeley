@@ -49,30 +49,65 @@ function checkInput(){
   }
 }
 
+function nextPageResults(){
+	pageNumber++
+	$("#currentpage").text(pageNumber);
+	sendClick();
+}
+
+function priorPageResults(){
+	if (pageNumber > 1){
+		pageNumber--
+		$("#currentpage").text(pageNumber);
+		sendClick();
+	}
+	else if (pageNumber === 1){
+		pageNumber--
+		$("#currentpage").text(pageNumber);
+		sendClick();
+		togglePrior(false);
+	}
+}
+
+
 //send click
+function sendClickPage(){
+	pageNumber = 0;
+	$("#currentpage").text(pageNumber);
+	sendClick();
+}
+
 function sendClick(){
 	//clear previous results
 	clear(false);
-
+	
 	//call send with proper url and utility function
-
+	var paperQuantity = $('#paperQuant').val();
+	console.log(paperQuantity);
+	
+	var pageString = "&page="+pageNumber;
+	console.log(pageString);
 	var SearchString = $('#search').val();
 	var authSearchString = $('#authsearch').val();
 	var comboSearchString = authSearchString + ";" + SearchString;
 	console.log(comboSearchString);
 	if (SearchString != "" && authSearchString != "") {
-		send(PROXY_URL+SEARCH_PATH+comboSearchString+'/',CONSUMER_KEY,populate);
+		send(PROXY_URL+SEARCH_PATH+comboSearchString+'/',CONSUMER_KEY+paperQuantity+pageString,populate);
 	console.log("It's a 1!");
 	}
 	else if (authSearchString === "") {
 	console.log("It's a 2!");
-		send(PROXY_URL+SEARCH_PATH+$('#search').val()+'/',CONSUMER_KEY,populate);
+		send(PROXY_URL+SEARCH_PATH+$('#search').val()+'/',CONSUMER_KEY+paperQuantity+pageString,populate);
 	}
 	else {
-		send(PROXY_URL+AUTHSEARCH_PATH+$('#authsearch').val()+'/',CONSUMER_KEY,populate);
+		send(PROXY_URL+AUTHSEARCH_PATH+$('#authsearch').val()+'/',CONSUMER_KEY+paperQuantity+pageString,populate);
 		console.log("It's a 3!");
 	}
-
+	
+	toggleNext(true);
+	if (pageNumber > 0){
+		togglePrior(true);
+	}
 }
 
 //clear click
@@ -110,6 +145,9 @@ console.log('out');
 //function customSort(pAuthor, pPub, pTitle, pYear, pTwitter){
 function customSort(response){
 //	$.getJSON(PROXY_URL+SEARCH_PATH+$('#search').val()+'/',CONSUMER_KEY,function(response,status,xhr){
+		
+		
+		
 		
 		authorWeight = $( "#authslider" ).slider( "values", 1 ); 
 		authorWeight = Math.abs(authorWeight-100)+1;
@@ -171,9 +209,9 @@ function customSort(response){
 					itemSize = itemSize-1;
 					i--;
 				};
-				console.log("Looping through item:" + i);
+				//console.log("Looping through item:" + i);
 			};
-			console.log("Year isn't blank" + i);
+			//console.log("Year isn't blank" + i);
 		};
 		 
 		$.each(sortedResponse.documents, function(key, val) {
@@ -222,9 +260,9 @@ function customSort(response){
 				
 			}
 			
-			/* console.log(val.sortOrder);
-			console.log(lcAuthors);
-			console.log(lcTitle); */
+			// console.log(val.sortOrder);
+			// console.log(lcAuthors);
+			// console.log(lcTitle); 
 			
 		});
 		
@@ -235,17 +273,41 @@ function customSort(response){
 		
 		$.each(sortedResponse.documents, function(key, val) {
 			
-			console.log(val.sortOrder);
-			console.log(val.year);
+			//console.log(val.sortOrder);
+			//console.log(val.year);
 		});
 //	});
 }
 
 function reSort(){
-	storeResponse = jQuery.extend(true, {}, originalResponse);
-	customSort(storeResponse);
-	$('#results').children().remove();
-	populate(storeResponse);
+	$('#spinner2').fadeIn(200,function(){
+		storeResponse = jQuery.extend(true, {}, originalResponse);
+		if(storeResponse.documents != null && storeResponse.documents != "undefined") {
+			customSort(storeResponse);
+			$('#results').children().remove();
+			populate(storeResponse);
+		}
+		$('#spinner2').fadeOut(1000);
+	});
+}
+
+
+
+function setTimer(){
+	
+	clearTimeout(currentTimeout);
+	currentTimeout = setTimeout(reSort(),2250);
+	
+	console.log(currentTimeout);
+	console.log(currentTimeout);
+	
+}
+
+function timerSort(){
+	if (currentTimeout) {
+		clearTimeout(currentTimeout);
+		reSort();
+	}
 }
 
 function displaySliders(){
@@ -265,21 +327,24 @@ function displaySliders(){
 		$( "#amount" ).val($( "#slider-range" ).slider( "values", 0 ) +	" - " + $( "#slider-range" ).slider( "values", 1 ) );
 	});
 	
-/*  	$(function() {
-		// setup search option sliders
-		$( "#searchSliders > span" ).each(function() {
-			// read initial values from markup and remove that
-			//var value = parseInt( $( this ).text(), 10 );
-			$( this ).empty().slider({
-				value: 10,
-				range: "min",
-				animate: true,
-				orientation: "vertical"
-			});
+}
+
+function displayPaperQuantSlider(){
+
+	$(function() {
+		$( "#pqslider" ).slider({
+			range: "min",
+			min: 50,
+			max: 1000,
+			step: 50,
+			value: 100,
+			slide: function( event, ui ) {
+				$( "#paperQuant" ).val( ui.value );
+			}
 		});
-	});  */
-	
-	
+		$( "#paperQuant" ).val( $( "#pqslider" ).slider( "value" ) );
+	}); 
+
 }
 
 function displayAuthorSlider(){
@@ -290,7 +355,7 @@ function displayAuthorSlider(){
 			range: "min",
 			min: 0,
 			max: 100,
-			value: 60,
+			value: 0,
 			slide: function( event, ui ) {
 				$( "#authorPriority" ).val( ui.value );
 			}
@@ -310,7 +375,7 @@ function displayTitleSlider(){
 			min: 0,
 			max: 100,
 
-			value: 60,
+			value: 0,
 			slide: function( event, ui ) {
 				$( "#titlePriority" ).val( ui.value );
 			}
@@ -318,8 +383,8 @@ function displayTitleSlider(){
 		$( "#titlePriority" ).val( $( "#titleslider" ).slider( "value" ) );
 	}); 
 	
-
 }
+
 function displayPublicationSlider(){
 
 	$(function() {
@@ -328,7 +393,7 @@ function displayPublicationSlider(){
 			range: "min",
 			min: 0,
 			max: 100,
-			value: 60,
+			value: 0,
 			slide: function( event, ui ) {
 				$( "#pubPriority" ).val( ui.value );
 			}

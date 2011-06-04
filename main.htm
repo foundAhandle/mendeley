@@ -50,9 +50,23 @@
 		
 	<!-- container -->
 	<div id="container" class="ui-widget-content round-me" style="height:250px;float:left;">
+	<div id="extracontainer" class="ui-widget-content round-me" style="height:250px;float:left;">
+	
 				
 		<div style="float:left;">
 
+		<!--Articles to Retrieve-->
+		
+		<div>
+				<p>
+					<div style="float:left;vertical-align:middle;">&nbsp retrieve &nbsp</div>
+					<div style="float:left;"><input type="text" id="paperQuant" class="container round-me horOutput"></div>
+					<div style="float:left;">&nbsp papers</div>
+				</p>
+				<br>
+				<div id="pqslider" class="horSlider"></div>
+		</div>	
+		
 		<!--Search Fields-->
 			<div class="topDivs">
 				  <span style="margin-left:2.5px;">paper</span>
@@ -77,20 +91,32 @@
 			<div class="topDivs">
 
 			<!-- submit -->
-			  <span style="float:left;width:100px;margin-left:3px;">
+			  <span style="float:left;width:90px;margin-left:3px;">
 				<a id="submit" href="javascript:">submit</a>
-				<img id="spinner1" src="http://i.imgur.com/m24rs.gif" alt="loading..."/>
-			  </span>
-
-			  <!-- score -->
-			  <span style="float:left; width:100px">
-				<a id="score" href="javascript:">Resort</a>
-				<img id="spinner2" src="http://i.imgur.com/m24rs.gif" alt="loading..."/>
+				<img id="spinner1" src="images/loading4.gif" alt="loading..."/>
 			  </span>
 
 			  <!-- clear -->
-			  <span style="float:left;">
+			  <span style="float:left;width:70px;">
 				<a id="clear" href="javascript:" style="margin-left:3px;">clear</a>
+			  </span>
+
+			  <span style="float:left;width:100px;">
+				<a id="previous" href="javascript:" style="margin-left:3px;">previous</a>
+			  </span>
+			  
+			  <!-- next -->
+			  <span style="float:left;width:100px;">
+				<a id="next" href="javascript:" style="margin-left:3px;">next</a>
+				<span id="currentpage"></span>
+			  </span>
+			  
+
+			<!-- resort -->
+			  <span style="float:left; width:80px;">
+				<span id="spinner2" href="javascript:">
+					resort <img id="spinner2" src="images/loading4.gif" alt="loading..."/>
+				</span>
 			  </span>
 
 			  </div>
@@ -152,10 +178,8 @@
 		<!-- results and map -->
 		<div style="margin-top:250px;">
 		  <!-- results -->
-		  <ul id="results"></ul>
-
-		  
-		 
+			
+			<ul id="results"></ul>
 
 		  <!-- map -->
 	<!-- <div style="background-color:#4A5584;float:left;">
@@ -168,5 +192,8 @@
 	<!-- protovis -->
     <!-- <script type="text/javascript" src="js/proto.js"></script> -->
 	</div>
+	<div id="extracontainer" class="ui-widget-content round-me" style="height:250px;width:100px;float:left;">
+		test
+	<div>
   </body>
 </html>
