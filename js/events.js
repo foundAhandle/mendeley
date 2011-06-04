@@ -3,6 +3,7 @@ function bindings(){
   $('#search').keyup(checkInput);
   $('#search').keypress(function(e){
       if(e.which == 13){
+if(checkInput())
        sendClickPage();
        }
   });
@@ -11,6 +12,7 @@ function bindings(){
   $('#authsearch').keyup(checkInput);
   $('#authsearch').keypress(function(e){
       if(e.which == 13){
+if(checkInput())
        sendClickPage();
        }
   });

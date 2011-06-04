@@ -14,6 +14,9 @@ function checkInput(){
 
 	//score button is hidden
 	toggleScore(false);
+
+	//return false (for return key event)
+	return false;
   }
   
   //else (if the search input is not blank)
@@ -46,6 +49,9 @@ function checkInput(){
 
 	//score button is hidden
 	toggleScore(validOrNot);
+
+	//return flag (for return key event)
+	return validOrNot;
   }
 }
 
@@ -115,32 +121,6 @@ function clearClick(){
   //clear previous results
   clear(true);
 }
-
-//mouse over handler
-function over(){
-  //set the country
-//console.log(tableData);
-//      tableData.setValue(0, 0, 'United States');
-//      tableData.setValue(0, 1, 300);
-//
-//geomap.setSelection([{row:1,column:null}]);
-//console.log(geomap.getSelection());
-/*
-var view = new google.visualization.DataView(tableData);
-view.setRows(view.getFilteredRows([{column: 1, minValue: 700}]));
-geomap.draw(view,{sortColumn:1});
-//geomap.setSelection(view);
-*/
-//geomap.draw(tableData,tableConfigOpts);
-//drawMap(false);
-}
-
-//mouse out handler
-function out(){
-  //
-console.log('out');
-};
-
 
 //function customSort(pAuthor, pPub, pTitle, pYear, pTwitter){
 function customSort(response){

@@ -32,6 +32,12 @@ function clear(clearAll){
 
   //remove all results
   $('#results').children().remove();
+
+  //slide info up
+  $('#info').slideUp();
+
+  //clear info
+  $('#info').children().remove();
 }
 
 //toggle message
@@ -128,35 +134,35 @@ function send(url,get,utilFunc){
 function populate(response){
   //for each json entry
   $.each(response.documents,function(key,val){
-	//results->div
+//what's this?
+if(!val.title)
+  //should this be a 'continue'?
+  return;
 	
-	if (!val.title){
-		return;
-	}
-	
+	//results
 	$('<div>',{'id':val.uuid,'class':'ui-widget-content round-me paper'}).appendTo('#results');
 
-	//get the title
-	//if (typeof val['title'] !== "undefined" || val['title'] !== null) {
-				title = (val.title.length>70)?(val.title.substr(0,70)+'...'):val.title;
-		//	}
-			
-	
+	  //title container
+	  $('<div>',{'id':val.uuid+'-title'}).appendTo('#'+val.uuid);
 
-	//div->anchor
-	$('<a>',{'href':val.mendeley_url,'target':'_blank','html':title,'mouseover':over,'mouseout':out}).appendTo('#'+val.uuid);
+		//title
+		$('<a>',{'href':val.mendeley_url,'target':'_blank','html':val.title}).appendTo('#'+val.uuid+'-title');
 
-	//div->break
-	$('<br>').appendTo('#'+val.uuid);
+	  //authors container
+	  $('<div>',{'id':val.uuid+'-authors','class':'resultAuthors'}).appendTo('#'+val.uuid);
 
-	//div->authors
-	$('<span>',{'html':val.authors}).appendTo('#'+val.uuid);
+		//authors
+		$('<span>',{'html':val.authors}).appendTo('#'+val.uuid+'-authors');
 
-	//div->break
-	$('<br>').appendTo('#'+val.uuid);
+	  //year and 'more info' container
+	  $('<div>',{'id':val.uuid+'-year','class':'resultYearAndMoreInfo'}).appendTo('#'+val.uuid);
 
-	//div->year
-	$('<span>',{'html':val.year}).appendTo('#'+val.uuid);
+		//year
+		$('<span>',{'html':val.year}).appendTo('#'+val.uuid+'-year');
+
+		//more info
+		$('<a>',{'id':val.uuid+'-info','href':"javascript:moreInfo('"+val.uuid+"')",'html':'more info','class':'moreInfo'}).
+		  appendTo('#'+val.uuid+'-year');
 
 	//corners not working properly if height is set via css
 //	$('#'+val.uuid).css({'height':60});
@@ -164,4 +170,88 @@ function populate(response){
 	//round corners
 //	$('#'+val.uuid).corners('5px');
   });//end for each json entry
+}
+
+//more info
+function moreInfo(uuid){
+  //slide info up
+  $('#info').slideUp();
+
+  //clear info
+  $('#info').children().remove();
+
+  //change all 'more info's to black
+  $('#results a').css({'color':'#000'});
+
+  //change chosen 'more info' to red
+  $('#'+uuid+'-info').css({'color':'#F00'});
+
+  //load json via api
+  $.getJSON(PROXY_URL+DETAILS_PATH+'/'+uuid+'/',
+			{'consumer_key':'973a9d58c1f8ffe7155e5d5136183ff304dcb3fb6'},
+			function(response,status,xhr){
+	//if no error
+	if(status!='error')
+	  //add info container
+	  infoContainer(response);
+  });
+}
+
+//info container
+function infoContainer(info){
+  //if 'type'
+  if(info.hasOwnProperty('type')){
+	//type container
+	$('<div>',{'id':'info-type','class':'infoItem'}).appendTo('#info');
+	  //type
+	  $('<span>',{'html':'Type: '+info.type}).appendTo('#info-type');
+  }
+
+  //if countries
+  if(info.hasOwnProperty('stats') && info.stats.hasOwnProperty('country') && info.stats.country.length){
+	//type container
+	$('<div>',{'id':'info-countries','class':'infoItem'}).appendTo('#info');
+
+	//countries
+	var countries = '';
+
+	//for each country
+	for(var i=0;i<info.stats.country.length;i++){
+	  //add country
+	  countries += info.stats.country[i].name;
+
+	  //delimiter
+	  countries += (i<(info.stats.country.length-1))?', ':'';
+	}
+
+	  //type
+	  $('<span>',{'html':'Countries: '+countries}).appendTo('#info-countries');
+  }
+
+
+  //if 'abstract'
+  if(info.hasOwnProperty('abstract')){
+	//abstract container
+	$('<div>',{'id':'info-abstract','class':'infoItem'}).appendTo('#info');
+	  //abstract
+	  $('<span>',{'html':'Abstract: '+info.abstract}).appendTo('#info-abstract');
+  }
+
+  //slide info down
+  $('#info').slideDown();
+
+  //set the country
+//      tableData.setValue(0, 0, 'United States');
+//      tableData.setValue(0, 1, 300);
+//
+//geomap.setSelection([{row:1,column:null}]);
+//console.log(geomap.getSelection());
+/*
+var view = new google.visualization.DataView(tableData);
+view.setRows(view.getFilteredRows([{column: 1, minValue: 700}]));
+geomap.draw(view,{sortColumn:1});
+//geomap.setSelection(view);
+*/
+//geomap.draw(tableData,tableConfigOpts);
+//drawMap(false);
 }
