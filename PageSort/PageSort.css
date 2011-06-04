@@ -1,0 +1,59 @@
+
+body {
+  width: 100%;
+  height: 100%;
+}
+
+table {
+  font-size: 200%;
+}
+
+#run-load-river-button {
+  width: 10em;
+  border-width: 2px;
+  border-color: black;
+  border-style: outset;
+  background-color: aquamarine;
+  text-align: center;
+  vertical-align: center;
+}
+
+.title {
+  text-align: center;
+  font-size: xx-large;
+  font-weight: bold;
+}
+.article {
+  border-bottom: 1px black solid;
+}
+
+.article-description {
+  padding-bottom: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.article-title {
+  padding: 0.25em;
+  font-weight: bold;
+}
+
+.article-title a:hover {
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none;
+}
+
+#log {
+  margin: 1em;
+}
+
+.log-item {
+  font-size: x-small;
+  font-family: monospace;
+  color: white;
+  background-color: black;
+  padding: 0.25em;
+}

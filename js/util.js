@@ -4,15 +4,24 @@ function clear(clearAll){
   if(clearAll){
 	//clear search input
 	$('#search').val('');
+	
+	$('#authsearch').val('');
 
 	//hide submit button
 	toggleSubmit(false);
-
+	toggleNext(false);
+	togglePrior(false);
+	
+	$("#currentpage").text("");
+	
 	//hide submit spinner
 	$('#spinner1').hide();
 
 	//hide score spinner
 	$('#spinner2').hide();
+	
+	//reset page number
+	pageNumber = 0;
   }
 
 //HIDE MAP
@@ -43,6 +52,28 @@ function toggleSubmit(showOrHide){
 	$('#submit').show(300);
 }
 
+function toggleNext(showOrHide){
+  //if hiding the button AND the button is currently visible
+  if(!showOrHide && $('#next').is(':visible'))
+	//hide the submit button
+	$('#next').hide(300);
+  //else if showing the button AND the button is currently hidden
+  else if(showOrHide && !$('#next').is(':visible'))
+	//show the submit button
+	$('#next').show(300);
+}
+
+function togglePrior(showOrHide){
+  //if hiding the button AND the button is currently visible
+  if(!showOrHide && $('#previous').is(':visible'))
+	//hide the submit button
+	$('#previous').hide(300);
+  //else if showing the button AND the button is currently hidden
+  else if(showOrHide && !$('#previous').is(':visible'))
+	//show the submit button
+	$('#previous').show(300);
+}
+
 //toggle score button
 function toggleScore(showOrHide){
   //if hiding the button AND the button is currently visible
@@ -68,6 +99,15 @@ function send(url,get,utilFunc){
 	  //else (if no error)
 	  else
 	  {
+		
+		//store response
+		storeResponse = response;
+		originalResponse = jQuery.extend(true, {}, response);
+		
+		
+		//sort response
+		customSort(storeResponse);
+		
 		//utility function
 		utilFunc(response);
 
@@ -89,10 +129,19 @@ function populate(response){
   //for each json entry
   $.each(response.documents,function(key,val){
 	//results->div
-	$('<div>',{'id':val.uuid,'class':'paper'}).appendTo('#results');
+	
+	if (!val.title){
+		return;
+	}
+	
+	$('<div>',{'id':val.uuid,'class':'ui-widget-content round-me paper'}).appendTo('#results');
 
 	//get the title
-	title = (val.title.length>70)?(val.title.substr(0,70)+'...'):val.title;
+	//if (typeof val['title'] !== "undefined" || val['title'] !== null) {
+				title = (val.title.length>70)?(val.title.substr(0,70)+'...'):val.title;
+		//	}
+			
+	
 
 	//div->anchor
 	$('<a>',{'href':val.mendeley_url,'target':'_blank','html':title,'mouseover':over,'mouseout':out}).appendTo('#'+val.uuid);
@@ -110,9 +159,9 @@ function populate(response){
 	$('<span>',{'html':val.year}).appendTo('#'+val.uuid);
 
 	//corners not working properly if height is set via css
-	$('#'+val.uuid).css({'height':60});
+//	$('#'+val.uuid).css({'height':60});
 
 	//round corners
-	$('#'+val.uuid).corners('5px');
+//	$('#'+val.uuid).corners('5px');
   });//end for each json entry
 }
